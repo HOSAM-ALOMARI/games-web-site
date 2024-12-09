@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <a class="active" href="#">add to cart!</a>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="../products/index.html">Products</a>
+                <a href="">Soon</a>
+                <a href="../cart/index.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="product-details">
+        <h2 id="product-name"></h2>
+        <img id="product-img" alt="Product Image">
+        <p id="product-desc"></p>
+        <div class="price" id="product-price"></div>
+        <button id="add-to-cart-button">Add to Cart</button>
+        <div id="success-message" style="display: none; color: green; margin-top: 10px;">Product added to cart!</div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('active');
+        }
+
+        window.onload = function() {
+            const productName = localStorage.getItem('productName');
+            const productImg = localStorage.getItem('productImg');
+            const productDesc = localStorage.getItem('productDesc');
+
+            if (productName && productImg && productDesc) {
+                document.getElementById('product-name').textContent = productName;
+                document.getElementById('product-img').src = productImg;
+                document.getElementById('product-desc').textContent = productDesc;
+                document.getElementById('product-price').textContent = "Price: 16.50 JOD";
+
+                document.getElementById('add-to-cart-button').onclick = function() {
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    cartItems.push({
+                        name: productName,
+                        img: productImg,
+                        desc: productDesc
+                    });
+
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+                    const successMessage = document.getElementById('success-message');
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 3000);
+
+                    updateCartCount();
+                };
+            }
+
+            updateCartCount();
+        };
+
+        function updateCartCount() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cartItems.length;
+        }
+    </script>
+    <script src="/script-to-fic-lng/script.js"></script>
+
+</body>
+</html>

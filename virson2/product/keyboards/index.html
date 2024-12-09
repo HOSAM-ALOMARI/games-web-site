@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <a class="active" href="#">Keyboards</a>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu">
+                <a href="/index.html">Home</a>
+                <a href="#">Soon</a>
+                <a href="/cart/index.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product" data-name="Gaming Keyboard" data-desc="RGB lighting with unmatched precision." data-img="/images/452ddfba3ec7f4fab68328db278f8347.webp">
+                <img class="product-img" src="/images/452ddfba3ec7f4fab68328db278f8347.webp" alt="Gaming Keyboard">
+                <h3>Gaming Keyboard</h3>
+                <div class="price">16.50 JOD</div>
+                <button class="view-product-button" onclick="viewProduct('Gaming Keyboard', '/images/452ddfba3ec7f4fab68328db278f8347.webp', 'RGB lighting with unmatched precision.')">View Product</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('active');
+        }
+
+        let cartCount = 0;
+        let cartItems = [];
+
+        function addToCart(productName, img, desc) {
+            const product = {
+                name: productName,
+                img: img,
+                desc: desc
+            };
+            cartItems.push(product);
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+        window.onload = function() {
+            const savedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+            if (savedCartItems) {
+                cartItems = savedCartItems;
+                cartCount = cartItems.length;
+                document.getElementById('cart-count').textContent = cartCount;
+            }
+        }
+
+        function viewProduct(productName, img, desc) {
+            localStorage.setItem('productName', productName);
+            localStorage.setItem('productImg', img);
+            localStorage.setItem('productDesc', desc);
+            window.location.href = '/info-items/product-details.html'; 
+        }
+    </script>
+    <script src="/script-to-fic-lng/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <a class="active" href="#">Products</a>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu">
+                <a href="../index.html">Home</a>
+                <a href="">Soon</a>
+                <a href="../cart/index.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product" data-name="Gaming Keyboard" data-desc="RGB lighting with unmatched precision." data-img=".././images/gaming-keyboard-hub-hero-crop-100734536-orig-1.webp">
+                <img src="./images/gaming-keyboard-hub-hero-crop-100734536-orig-1.webp" alt="Gaming Keyboard">
+                <h3>Gaming Keyboard</h3>
+                <p>High-performance gaming keyboard with responsive keys and customizable lighting for precision and durability  </p>
+                <button onclick="window.open('./product/Keyboards/index.html', '_blank')">
+                    <span>View the products!</span>
+                  </button>
+                                  </div>
+            <div class="product" data-name="Gaming Mouse" data-desc="Futuristic design with high accuracy." data-img=".././images/find-right-fit-mice-1200x630-og.png">
+                <img src="./images/find-right-fit-mice-1200x630-og.png" alt="Gaming Mouse">
+                <h3>Gaming Mouse</h3>
+                <p>
+
+                    High-precision mice with ergonomic designs for all uses. Choose from wired or wireless models for a smooth and efficient control experience.</p>
+                <button onclick="window.open('./product/Keyboards/index.html', '_blank')">
+                    <span>View the products!</span>
+                  </button>                </div>
+            <div class="product" data-name="Gaming Headset" data-desc="Crystal-clear audio with 3D soundscapes." data-img=".././images/razer-blackshark-v2-line-ogimage-1200x630.jpg">
+                <img src="./images/razer-blackshark-v2-line-ogimage-1200x630.jpg" alt="Gaming Headset">
+                <h3>Gaming Headset</h3>
+                <p>Gaming headset with clear audio, noise cancellation, and comfortable design for an immersive experience.</p>
+                <button onclick="window.open('./product/Keyboards/index.html', '_blank')">
+                    <span>View the products!</span>
+                  </button>                   </div>
+            <div class="product" data-name="Gaming Headset" data-desc="Crystal-clear audio with 3D soundscapes." data-img=".././images/20240326013834.jpg">
+                <img src="./images/20240326013834.jpg" alt="Gaming Headset">
+                <h3>Gaming screens</h3>
+                <p>High-quality gaming screens with fast refresh rates and vibrant visuals for an immersive gaming experience.</p>
+                <button onclick="window.open('./product/Keyboards/index.html', '_blank')">
+                    <span>View the products!</span>
+                  </button></div>
+            </div>
+        </div>
+    </section> 
+     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('active');
+        }
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || []; 
+        
+            function addToCart(productName, productDesc, productImg) {
+                const item = {
+                    name: productName,
+                    desc: productDesc,
+                    img: productImg
+                };
+        
+                cartItems.push(item); 
+                localStorage.setItem('cartItems', JSON.stringify(cartItems)); 
+        
+                updateCartCount(); 
+            }
+        
+            function updateCartCount() {
+                const cartCount = cartItems.length;
+                document.getElementById('cart-count').textContent = cartCount;
+            }
+        
+            window.onload = function() {
+                updateCartCount(); 
+            };
+        
+    </script>
+    <script src="/script-to-fic-lng/script.js"></script>
+
+</body>
+</html>

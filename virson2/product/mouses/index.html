@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styel.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <a class="active" href="#">mouses</a>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu">
+                <a href="/index.html">Home</a>
+                <a href="/products/index.html">products</a>
+                <a href="">Soon</a>
+                <a href="/cart/index.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product" >
+                <img class="product-img" src="/images/hyperx-pulsefire-surge-mouse-mouse-660.webp" alt="Gaming Keyboard">
+                <h3>Gaming mouse</h3>
+                <div class="price">16.50 JOD</div>
+                <button onclick="viewProduct('Gaming mouse', '/images/hyperx-pulsefire-surge-mouse-mouse-660.webp', 'High-performance gaming keyboard with responsive keys and customizable lighting for precision and durability')">View Product</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('active');
+        }
+
+        function viewProduct(productName, img, desc) {
+            localStorage.setItem('productName', productName);
+            localStorage.setItem('productImg', img);
+            localStorage.setItem('productDesc', desc);
+            window.location.href = '/info-items/product-details.html'; 
+        }
+
+        let cartCount = 0;
+        let cartItems = [];
+
+        function addToCart(productName, img, desc) {
+            const product = {
+                name: productName,
+                img: img,
+                desc: desc
+            };
+            cartItems.push(product);
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+        window.onload = function() {
+            const savedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+            if (savedCartItems) {
+                cartItems = savedCartItems;
+                cartCount = cartItems.length;
+                document.getElementById('cart-count').textContent = cartCount;
+            }
+        }
+    </script>
+    <script src="/script-to-fic-lng/script.js"></script>
+
+</body>
+</html>
